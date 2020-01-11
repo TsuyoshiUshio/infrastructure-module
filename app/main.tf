@@ -5,13 +5,17 @@ terraform {
     backend "azurerm" {
     }
 }
-module "rg" {
-    resource "azurerm_resource_group" "test" {
-    name     = var.resource_group_name
-    location = var.location
 
-        tags = {
-            environment = "10 branch"
-        }
-    }
+module "rg" {
+    source "./rg"
+    location = var.location
+    resource_group_name = var.resource_group_name
+}
+
+variable location {
+    description = "Location of the Virtual Net"
+}
+
+variable resource_group_name {
+    description = "Resource Group Name for the virtual net"
 }
